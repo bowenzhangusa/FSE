@@ -41,13 +41,11 @@ io.sockets.on('connection', function (socket) {
     db.each('SELECT name, message, date FROM message', function(err, row) {
     socket.emit('message', { message: row.message, username: row.name, timestamp: row.date } );
   });
-    console.log("finished db selection");
     socket.on('send', function (data) {
         console.log("inside index.js");
 	console.log(data);
 	sqlRequest = "INSERT INTO 'message' (name, message, date) " +
                "VALUES('" + data.username + "', '" + data.message + "', '" + data.timestamp + "')";
-	console.log(sqlRequest);
 	db.run(sqlRequest, function(err) {
 	    if (err !== null) {
 		console.log(err);

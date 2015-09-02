@@ -13,9 +13,10 @@ window.onload = function() {
             messages.push(data);
             var html = '';
             for(var i=0; i<messages.length; i++) {
-               html += '<b>' + (messages[i].username ? messages[i].username : 'Server') + ': </b>';
-               html += messages[i].message + '<br />';
-               //html += (messages[i].timestamp ? message[i].timestamp : '') + '<br />';
+	       if (messages[i].username) {
+	           html += '<b>' + messages[i].username + ': </b>';
+		}
+		html += messages[i].message + '<br />';
                if (messages[i].username) {
                    html += messages[i].timestamp + '<br />';
 	       }
