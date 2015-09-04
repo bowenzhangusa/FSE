@@ -36,7 +36,7 @@ app.use(express.static(__dirname + '/public'));
 
 var io = require('socket.io').listen(app.listen(port));
 io.sockets.on('connection', function (socket) {
-    socket.emit('message', { message: 'welcome to the chat' });
+    socket.emit('message', { message: 'FSE Chat Room' });
     
     db.each('SELECT name, message, date FROM message', function(err, row) {
     socket.emit('message', { message: row.message, username: row.name, timestamp: row.date } );

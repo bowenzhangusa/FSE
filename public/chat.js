@@ -8,18 +8,17 @@ window.onload = function() {
     var name = document.getElementById("name");
  
     socket.on('message', function (data) {
-       console.log("inside chat.js"); 
        if(data.message) {
             messages.push(data);
             var html = '';
             for(var i=0; i<messages.length; i++) {
 	       if (messages[i].username) {
-	           html += '<b>' + messages[i].username + ': </b>';
+		   html += '<div style=' + '"display:inline-block;margin-right:20px">';
+	           html += '<b>' + messages[i].username + ' </b></div>';
+		   html += '<div style=' + '"display:inline-block;float:right;font-size:12px">';
+                   html += messages[i].timestamp + '</div><br />';
 		}
 		html += messages[i].message + '<br />';
-               if (messages[i].username) {
-                   html += messages[i].timestamp + '<br />';
-	       }
             }
             content.innerHTML = html;
         } else {
@@ -33,7 +32,7 @@ window.onload = function() {
         } else {
             var text = field.value;
 	    var currentDate = new Date();
-            socket.emit('send', { message: text, username: name.value, timestamp: new Date() });
+            socket.emit('send', { message: text, username: name.value, timestamp: currentDate.toLocaleString() });
         }
     };
  
